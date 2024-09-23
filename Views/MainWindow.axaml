@@ -1,0 +1,112 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaWeatherMVVM.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
+        x:Class="AvaloniaWeatherMVVM.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaWeatherMVVM">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+	
+	<Border Background="#4d71f2" CornerRadius="15" 
+			Width="200" Height="430" Padding="5">
+		<StackPanel Background="#4d71f2" Orientation="Vertical">
+			
+			<StackPanel Background="Aqua" Height="20">
+				<TextBox Background="Green" Name="CityName" TextAlignment="Center" Text="{Binding Name}"></TextBox>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal">
+				<StackPanel HorizontalAlignment="Left" Margin="5"
+							Width="100" Height="100">
+					<TextBlock FontSize="15" VerticalAlignment="Top" Margin="10"
+							   Text="{Binding ElementName=CityName, Path=Text}" HorizontalAlignment="Center"/>
+					<TextBlock FontSize="32" VerticalAlignment="Top" Margin="10"
+							   Text="{Binding Temp}" HorizontalAlignment="Center"/>
+				</StackPanel>
+				<Image Width="60" asyncImageLoader:ImageLoader.Source="{Binding ImageSourceWeb}"></Image>
+			</StackPanel>
+			<Grid RowDefinitions="80" ColumnDefinitions="*,*,*,*,*" HorizontalAlignment="Center">
+				<Grid.Styles>
+					<Style Selector="TextBlock">
+						<Setter Property="HorizontalAlignment" Value="Center" ></Setter>
+						<Setter Property="TextAlignment" Value="Center" ></Setter>
+						<Setter Property="FontSize" Value="10" ></Setter>
+						<Setter Property="Margin" Value="2,5,2,2"></Setter>
+						<Setter Property="Width" Value="30"></Setter>
+					</Style>
+				</Grid.Styles>
+				<StackPanel Margin="2">
+					<TextBlock Text="Now"></TextBlock>
+					<TextBlock Text="{Binding Temp}"></TextBlock>
+					<Image Width="40" asyncImageLoader:ImageLoader.Source="{Binding ImageSourceWeb}"></Image>
+				</StackPanel>
+				<StackPanel Grid.Column="1" Margin="2">
+					<TextBlock Text="{Binding Time1}"></TextBlock>
+					<TextBlock Text="{Binding Temp1}"></TextBlock>
+					<Image Width="40" asyncImageLoader:ImageLoader.Source="{Binding ImageSourceWeb1}"></Image>
+				</StackPanel>
+				<StackPanel Grid.Column="2" Margin="2" >
+					<TextBlock Text="{Binding Time2}"></TextBlock>
+					<TextBlock Text="{Binding Temp2}"></TextBlock>
+					<Image Width="40" asyncImageLoader:ImageLoader.Source="{Binding ImageSourceWeb2}"></Image>
+				</StackPanel>
+				<StackPanel Grid.Column="3" Margin="2" >
+					<TextBlock Text="{Binding Time3}"></TextBlock>
+					<TextBlock Text="{Binding Temp3}"></TextBlock>
+					<Image Width="40" asyncImageLoader:ImageLoader.Source="{Binding ImageSourceWeb3}"></Image>
+				</StackPanel>
+				<StackPanel Grid.Column="4" Margin="2">
+					<TextBlock Text="{Binding Time4}"></TextBlock>
+					<TextBlock Text="{Binding Temp4}"></TextBlock>
+					<Image Width="40" asyncImageLoader:ImageLoader.Source="{Binding ImageSourceWeb4}"></Image>
+				</StackPanel>
+			</Grid>
+
+			<Grid RowDefinitions="*,*" Margin="" Height="50" Width="180">
+				
+				<StackPanel Orientation="Horizontal" >
+					<TextBlock Text="Hamidity" FontSize="8" VerticalAlignment="Bottom" Width="50" Margin="5"/>
+					<TextBlock Text="Wind" FontSize="8" VerticalAlignment="Bottom" Width="50" Margin="5"/>
+					<TextBlock Text="Air Pressure" FontSize="8" VerticalAlignment="Bottom" Width="50" Margin="5"/>
+				</StackPanel>
+				
+				<StackPanel Grid.Row="1" Orientation="Horizontal">
+					<TextBlock Text="{Binding Humidity}" VerticalAlignment="Top" Width="50" FontSize="8" Margin="5"/>
+					<TextBlock Text="{Binding Speed}" VerticalAlignment="Top" Width="50" FontSize="8" Margin="5"/>
+					<TextBlock Text="{Binding Pressure}" VerticalAlignment="Top" Width="50" FontSize="8" Margin="5"/>
+				</StackPanel>
+			</Grid>
+			
+			<Border Margin="0,0,0,0" Background="#708df4" CornerRadius="15"
+			Width="200" Height="190" Padding="5">
+					<ListBox Background="#708df4" ItemsSource="{Binding Days}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Grid Height="14" Margin="0,0,0,0" ColumnDefinitions="70,60,20">
+									<TextBlock HorizontalAlignment="Left" Grid.Column="0" Text="{Binding DateTMP}"
+											   FontSize="10" VerticalAlignment="Center"/>
+									<TextBlock HorizontalAlignment="Right" Grid.Column="2" Text="{Binding TempTMP}"
+											   FontSize="10" VerticalAlignment="Center"/>
+
+									<Image  Grid.Column="1" HorizontalAlignment="Right"
+										   asyncImageLoader:ImageLoader.Source="{Binding ImageTMP}"></Image>
+								</Grid>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+			</Border>
+		</StackPanel>
+	</Border>
+	
+
+
+</Window>
